@@ -43,7 +43,13 @@ class DecoderBlock(nn.Module):
         super().__init__()
         self.config = config
         self.attention = self.pick_attention_type(config)
-        self.feed_forward = self.pick_feed_forward_type(config) 
+        
+        if config.use_experts==True:
+            self.feed_forward = FeedForwardTypes.MixtureOfExperts(config, self.pick_feed_forward_type)
+        else:
+            self.feed_forward = self.pick_feed_forward_type(config) 
+            
+
         self.ln1 = nn.LayerNorm(config.d_model)
         self.ln2 = nn.LayerNorm(config.d_model)
         

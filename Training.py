@@ -39,6 +39,9 @@ class Configs:
     window_size: int = 128
     epochs: int = 100
     pos_embed: str = 'rope' #could be rope or sinusoidal
+    use_experts: bool = True    
+    num_experts: int = 4
+    top_k_experts: int = 2
 
 config = Configs()
 
@@ -50,6 +53,7 @@ def training():
     parser.add_argument("--d_model", required = False, type=int, default = 64)
     parser.add_argument("--attention_type", required = False, default = 'gqa')
     parser.add_argument("--ff", required = False, default = 'relu')
+    parser.add_argument("--use_experts", action = argparse.BooleanOptionalAction, default = False)
     parser.add_argument("--num_blocks", required = False, type=int, default = 4)
     parser.add_argument("--num_groups", required = False, type=int, default = 4)
     parser.add_argument("--pos_embed", required = False, default = 'rope')
@@ -62,6 +66,7 @@ def training():
     config.d_model = args.d_model
     config.attention_type = att_dict[args.attention_type]
     config.ff = ff_dict[args.ff]
+    config.use_experts = args.use_experts
     config.num_blocks = args.num_blocks
     config.num_groups = args.num_groups
     config.pos_embed = args.pos_embed 
