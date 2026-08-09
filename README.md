@@ -2,7 +2,7 @@
 
 A from-scratch, decoder-only transformer in PyTorch where the main architectural
 choices are swappable through a single config: attention type, feed-forward
-activation, positional embedding, and KV cache strategy. It trains a
+activation, mixture of experts, positional embedding, and KV cache strategy. It trains a
 character-level model on the TinyShakespeare dataset.
 
 The point of the repo is comparison — train the same model with different
@@ -14,7 +14,7 @@ attention or positional embedding settings and see what changes.
 | --- | --- |
 | `TransformerMain.py` | `Transformer` and `DecoderBlock`; assembles the parts chosen by the config. Also `saveModel` / `loadModel`. |
 | `AttentionTypes.py` | Multi-head, sliding-window, multi-query, and grouped-query attention. |
-| `FeedForwardTypes.py` | Feed-forward block variants (ReLU, GELU, SwiGLU). |
+| `FeedForwardTypes.py` | Feed-forward block variants (ReLU, GELU, SwiGLU), with mixture of experts|
 | `PositionalEmbeddingTypes.py` | Sinusoidal embeddings and RoPE. |
 | `KvCacheTypes.py` | Full KV cache and a ring-buffer cache for sliding-window attention. |
 | `DataLoader.py` | Downloads TinyShakespeare, builds the character vocab, yields batches. |
@@ -44,6 +44,7 @@ Arguments (all optional):
 | --- | --- | --- |
 | `--attention_type` | `gqa` | `mha`, `window`, `mqa`, `gqa` |
 | `--ff` | `relu` | `relu`, `gelu`, `swiglu` |
+| `--use_experts` |
 | `--pos_embed` | `rope` | `rope`, `sinusoidal` |
 | `--d_model` | 64 | |
 | `--num_blocks` | 4 | |
