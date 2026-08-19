@@ -22,6 +22,7 @@ attention or positional embedding settings and see what changes.
 | `Generate.py` | Greedy generation, with and without a KV cache. |
 | `ParameterMethods.py` | Placeholder for initialization schemes. |
 | `Demo.ipynb` | Notebook walkthrough. |
+|`SpeculativeDecodingDemo.ipynb` | A simple Speculative Decoding example |
 | `SavedModels/` | Pre-trained checkpoints (state dict plus the config used). |
 
 ## Setup
